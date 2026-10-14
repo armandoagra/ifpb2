@@ -1,17 +1,20 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    private Player _player;
-    [SerializeField] private Moeda _ultimaMoeda;
+    [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private GameObject _telaFinal;
+    [SerializeField] private TextMeshProUGUI _finalScoreText;
+    [SerializeField] private Color _finalScoreColor;
+    private int _moedas;
+
 
     void Awake()
     {
         Instance = this;
-        
-        _player = FindAnyObjectByType<Player>();
     }
 
     void OnEnable() { Player.OnPegouMoeda += UpdateUI; }
@@ -19,6 +22,20 @@ public class GameManager : MonoBehaviour
 
     public void UpdateUI(int moedas)
     {
-        Debug.Log("UI do jogo atualizada! Moedas = " + moedas);
+        _moedas = moedas;
+        _scoreText.text = moedas.ToString();
+    }
+
+    public void GameOver()
+    {
+        _finalScoreText.text = _moedas.ToString();
+        _finalScoreText.color = _finalScoreColor;
+        _telaFinal.SetActive(true);
+        
+    }
+
+    private void BackToMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }

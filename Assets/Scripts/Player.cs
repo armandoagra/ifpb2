@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
     public void PegouMoeda(int valor)
     {
-        _moedas += valor;
+         _moedas += valor;
 
         OnPegouMoeda?.Invoke(_moedas);
     }
